@@ -4,40 +4,57 @@ def add_menu_items():
     def get_category(name):
         return MenuCategory.query.filter_by(name=name).first()
 
-    # Fischgerichte
-    fischgerichte = [
-        {'name': 'Baby Calamari vom Grill', 'description': 'Gegrillte Baby-Calamari mit Zitronen-Olivenöl, frischem Butterreis & Senfsauce.', 'price': 19.20, 'category': 'fischgerichte'},
-        {'name': 'Frittierte Baby Calamari', 'description': 'Panierter und frittierter Baby-Calamari mit Zitronen-Olivenöl, frischem Butterreis & Senfsauce.', 'price': 19.20, 'category': 'fischgerichte'},
-        {'name': 'Garnelen Souflaki', 'description': 'Gegrillte Garnelen am Spieß mit frischem Butterreis & Senfsauce.', 'price': 22.60, 'category': 'fischgerichte'},
-        {'name': 'Fischteller', 'description': 'Frittierte Calamari, gegrilltes Doradefilet, gegrillter Lachs, gegrillte Garnelen, frischer Butterreis, dazu Senfsauce.', 'price': 24.50, 'category': 'fischgerichte'},
-        {'name': 'Dorade Royal', 'description': 'Zwei Doradenfilets mit Zitronen-Olivenöl, dazu frischer Butterreis und hausgemachte Senfsauce.', 'price': 24.50, 'category': 'fischgerichte'},
-        {'name': 'Lachsfilet vom Grill', 'description': 'Gegrilltes Lachsfilet, mit frischem Butterreis, dazu Senfsauce.', 'price': 22.60, 'category': 'fischgerichte'}
+    # Spezialitäten vom Lamm
+    spezialitaeten_vom_lamm = [
+        {'name': 'Lammkoteletts', 'price': 19.90, 'category': 'spezialitaeten_vom_lamm'},
+        {'name': 'Zarte Lammhaxen aus dem Backofen (mit grünen Bohnen)', 'price': 21.60, 'category': 'spezialitaeten_vom_lamm'},
+        {'name': 'Zarte Lammhaxen aus dem Backofen (mit dicken Bohnen)', 'price': 21.20, 'category': 'spezialitaeten_vom_lamm'},
+        {'name': 'Zarte Lammhaxen aus dem Backofen (mit Bamies)', 'price': 21.60, 'category': 'spezialitaeten_vom_lamm'},
+        {'name': 'Zarte Lammhaxen aus dem Backofen (mit Spaghetti)', 'price': 21.20, 'category': 'spezialitaeten_vom_lamm'},
+        {'name': 'Stifado', 'description': 'zartes Lammfleisch mit Schalotten in Tomaten-Kräutersauce', 'price': 19.90, 'category': 'spezialitaeten_vom_lamm'},
+        {'name': 'Kleftiko', 'price': 21.60, 'category': 'spezialitaeten_vom_lamm'}
     ]
 
-    # Vegetarische Gerichte
-    vegetarische_gerichte = [
-        {'name': 'Stamna', 'description': 'Griechische Nudeln, frisches Gemüse und Kartoffeln aus dem Ofen.', 'price': 7.80, 'category': 'vegetarische_gerichte', 'vegetarian': True},
-        {'name': 'Griechische Nudeln mit Gemüse & Tomatensauce', 'price': 9.30, 'category': 'vegetarische_gerichte', 'vegetarian': True},
-        {'name': 'Gemüse Ograten', 'description': 'Gemüsemischung in Schlagsahne, mit Käse überbacken.', 'price': 7.80, 'category': 'vegetarische_gerichte', 'vegetarian': True}
+    # Fleischgerichte
+    fleischgerichte = [
+        {'name': 'Sutzukakia', 'description': 'gegrillte Hackfleischröllchen', 'price': 14.90, 'category': 'fleischgerichte'},
+        {'name': 'Gyros', 'price': 15.90, 'category': 'fleischgerichte', 'homemade': True},
+        {'name': 'Souflaki', 'description': 'zwei Spieße', 'price': 15.90, 'category': 'fleischgerichte'},
+        {'name': 'Bifteki', 'description': 'Hacksteak gefüllt mit Schafskäse', 'price': 17.50, 'category': 'fleischgerichte'},
+        {'name': 'Hähnchenfilet', 'price': 15.60, 'category': 'fleischgerichte'},
+        {'name': 'Bauernspieß', 'price': 20.50, 'category': 'fleischgerichte'},
+        {'name': 'Kalbsleber', 'price': 17.50, 'category': 'fleischgerichte'},
+        {'name': 'Rückensteak vom Grill', 'price': 17.50, 'category': 'fleischgerichte'},
+        {'name': 'Medaillons vom Grill', 'price': 19.60, 'category': 'fleischgerichte'},
+        {'name': 'Schnitzel Wiener Art', 'price': 16.80, 'category': 'fleischgerichte'}
     ]
 
-    # Steak vom Grill
-    steak_vom_grill = [
-        {'name': 'Rumpsteak (ca. 300 g)', 'description': 'Mit Kräuterbutter & Ofenkartoffel.', 'price': 28.90, 'category': 'steak_vom_grill'}
+    # Gemischte Fleischplatten vom Grill
+    gemischte_fleischplatten = [
+        {'name': 'Mia-Platte', 'price': 17.20, 'category': 'gemischte_fleischplatten'},
+        {'name': 'Alas-Platte', 'price': 19.90, 'category': 'gemischte_fleischplatten'},
+        {'name': 'Meteora-Platte', 'price': 17.80, 'category': 'gemischte_fleischplatten'},
+        {'name': 'Trikala-Platte', 'price': 17.90, 'category': 'gemischte_fleischplatten'},
+        {'name': 'Thessalia-Platte', 'price': 17.90, 'category': 'gemischte_fleischplatten'},
+        {'name': 'Volos-Platte', 'price': 17.20, 'category': 'gemischte_fleischplatten'},
+        {'name': 'Dorf-Platte', 'price': 19.90, 'category': 'gemischte_fleischplatten'}
     ]
 
-    # Pfannengerichte
-    pfannengerichte = [
-        {'name': 'Gyros-Pfanne', 'description': 'In Metaxasauce zubereitet, mit Schafskäse überbacken, dazu Kartoffelscheiben.', 'price': 17.50, 'category': 'pfannengerichte'},
-        {'name': 'Gyros überbacken mit Käse', 'description': 'In Metaxasauce zubereitet, dazu Kartoffelscheiben.', 'price': 17.50, 'category': 'pfannengerichte'},
-        {'name': 'Psaronefri-Pfanne', 'description': 'Schweinefiletmedaillons mit Rahmsauce flambiert, dazu Kartoffelscheiben.', 'price': 19.60, 'category': 'pfannengerichte'},
-        {'name': 'Musakas – Der weltbekannte Auflauf', 'description': 'Mit Auberginen, Hackfleisch & Kartoffeln, überbacken mit einer feinen Béchamel-Sauce.', 'price': 17.90, 'category': 'pfannengerichte'},
-        {'name': 'Kotopulo-Pfanne', 'description': 'Hähnchenbrustfilet, überbacken in Metaxasauce, dazu Kartoffelscheiben.', 'price': 17.80, 'category': 'pfannengerichte'},
-        {'name': 'Keftedakia Smyrneika – Pfanne', 'description': 'Frikadellen in Tomatensauce überbacken, dazu Kartoffelscheiben.', 'price': 18.20, 'category': 'pfannengerichte'}
+    # Desserts
+    desserts = [
+        {'name': 'Griechischer Joghurt mit Honig & Walnüssen', 'price': 6.70, 'category': 'desserts', 'vegetarian': True},
+        {'name': 'Galaktoboureko', 'description': 'Blätterteig mit Vanilleeis-Grießcreme gefüllt & Vanilleeis', 'price': 8.30, 'category': 'desserts', 'vegetarian': True},
+        {'name': 'Mille-Feuille', 'description': 'Blätterteig gefüllt mit Vanillecreme, Erdbeeren & Pistazien', 'price': 8.30, 'category': 'desserts', 'vegetarian': True},
+        {'name': 'Steirer-Eis', 'description': 'Vanilleeis mit Kürbiskernöl & karamellisierten Kürbiskernen', 'price': 6.70, 'category': 'desserts', 'vegetarian': True},
+        {'name': 'Coupé Ananas', 'description': 'Vanilleeis mit frischer Ananas & Schlagsahne', 'price': 6.70, 'category': 'desserts', 'vegetarian': True},
+        {'name': 'Heiße Feigen', 'description': 'gekocht in Cassis-Likör & Vanilleeis', 'price': 8.30, 'category': 'desserts', 'vegetarian': True, 'contains_alcohol': True},
+        {'name': 'Eis mit heißen Himbeeren', 'description': 'Vanilleeis mit heißen Himbeeren & Sahne', 'price': 6.70, 'category': 'desserts', 'vegetarian': True},
+        {'name': 'Gemischtes Eis', 'description': 'Vanille-, Erdbeer- und Schokoladeneis, dazu Sahne', 'price': 6.70, 'category': 'desserts', 'vegetarian': True},
+        {'name': 'Gadaifi', 'description': 'Knusprige Teigfäden mit Walnussfüllung und Zuckersirup, dazu Vanilleeis', 'price': 8.30, 'category': 'desserts', 'vegetarian': True}
     ]
 
-    # Combine all items
-    all_items = fischgerichte + vegetarische_gerichte + steak_vom_grill + pfannengerichte
+    # Alle Menüpunkte zur Datenbank hinzufügen
+    all_items = spezialitaeten_vom_lamm + fleischgerichte + gemischte_fleischplatten + desserts
 
     for item_data in all_items:
         category = get_category(item_data['category'])
@@ -49,12 +66,13 @@ def add_menu_items():
                 category_id=category.id,
                 vegetarian=item_data.get('vegetarian', False),
                 vegan=item_data.get('vegan', False),
-                homemade=item_data.get('homemade', False)
+                homemade=item_data.get('homemade', False),
+                contains_alcohol=item_data.get('contains_alcohol', False)
             )
             db.session.add(item)
 
     db.session.commit()
-    print("Fish dishes and more added successfully!")
+    print("Menüpunkte (Teil 3) erfolgreich hinzugefügt!")
 
 if __name__ == '__main__':
     with app.app_context():

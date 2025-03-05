@@ -18,33 +18,34 @@
             </div>
             <ul class="nav-links">
                 <li>
-                    <a href="{{ url_for('admin') }}" class="nav-link {% if request.endpoint == 'admin' %}active{% endif %}">
+                    <a href="{{ url_for('admin.index') }}" class="nav-link {% if request.endpoint == 'admin.index' %}active{% endif %}">
                         <i class="fas fa-home"></i>
                         Dashboard
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('admin_menu') }}" class="nav-link {% if request.endpoint == 'admin_menu' %}active{% endif %}">
-                        <i class="fas fa-utensils"></i>
-                        Speisekarte
+                    <a href="{{ url_for('admin_speisekarte') }}" class="nav-link {% if request.endpoint == 'admin_speisekarte' %}active{% endif %}">
+                        <i class="fas fa-utensils"></i> Speisekarte
                     </a>
                 </li>
                 <li>
                     <a href="{{ url_for('admin_categories') }}" class="nav-link {% if request.endpoint == 'admin_categories' %}active{% endif %}">
-                        <i class="fas fa-tags"></i>
-                        Kategorien
+                        <i class="fas fa-list"></i> Kategorien
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('admin_hours') }}" class="nav-link {% if request.endpoint == 'admin_hours' %}active{% endif %}">
-                        <i class="far fa-clock"></i>
-                        Öffnungszeiten
+                    <a href="{{ url_for('admin.opening_hours') }}" class="nav-link {% if request.endpoint == 'admin.opening_hours' %}active{% endif %}">
+                        <i class="fas fa-clock"></i> Öffnungszeiten
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('admin_gallery') }}" class="nav-link {% if request.endpoint == 'admin_gallery' %}active{% endif %}">
-                        <i class="far fa-images"></i>
-                        Galerie
+                    <a href="{{ url_for('admin_galerie') }}" class="nav-link {% if request.endpoint == 'admin_galerie' %}active{% endif %}">
+                        <i class="fas fa-images"></i> Galerie
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('admin.statistics') }}" class="nav-link {% if request.endpoint == 'admin.statistics' %}active{% endif %}">
+                        <i class="fas fa-chart-bar"></i> Statistiken
                     </a>
                 </li>
                 <li>
@@ -63,9 +64,9 @@
         </nav>
 
         <main class="main-content">
-            {% if request.endpoint != 'admin' %}
+            {% if request.endpoint != 'admin.index' %}
             <div class="top-bar">
-                <a href="{{ url_for('admin') }}" class="back-button">
+                <a href="{{ url_for('admin.index') }}" class="back-button">
                     <i class="fas fa-arrow-left"></i>
                     Zurück zum Dashboard
                 </a>

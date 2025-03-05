@@ -8,7 +8,8 @@
     <div class="card mb-4">
         <div class="card-body">
             <h5 class="card-title">Neue Kategorie hinzufügen</h5>
-            <form action="{{ url_for('admin_add_category') }}" method="POST">
+            <form action="{{ url_for('admin_categories_add') }}" method="POST">
+                {{ form.csrf_token }}
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="name" class="form-label">URL-Name</label>
@@ -65,7 +66,11 @@
                                 {% endif %}
                             </td>
                             <td>
-                                <form action="{{ url_for('admin_delete_category', id=category.id) }}" method="POST" class="d-inline">
+                                <button class="btn btn-primary btn-sm edit-btn" data-id="{{ category.id }}">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <form action="{{ url_for('admin_categories_delete', id=category.id) }}" method="POST" class="d-inline">
+                                    {{ form.csrf_token }}
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Wirklich löschen? Alle Menüeinträge in dieser Kategorie werden ebenfalls gelöscht!')">
                                         <i class="bi bi-trash"></i>
                                     </button>
@@ -75,6 +80,43 @@
                         {% endfor %}
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal für das Bearbeiten einer Kategorie -->
+<div class="modal" id="editModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kategorie bearbeiten</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-form" action="#" method="POST">
+                    {{ form.csrf_token }}
+                    <input type="hidden" id="edit-id" name="edit-id">
+                    <div class="form-group mb-3">
+                        <label for="edit-name">URL-Name</label>
+                        <input type="text" class="form-control" id="edit-name" name="edit-name" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="edit-display_name">Anzeigename</label>
+                        <input type="text" class="form-control" id="edit-display_name" name="edit-display_name" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="edit-order">Reihenfolge</label>
+                        <input type="number" class="form-control" id="edit-order" name="edit-order" min="1" required>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="edit-is_drink_category" name="edit-is_drink_category">
+                        <label class="form-check-label" for="edit-is_drink_category">Getränke-Kategorie?</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Speichern</button>
+                </form>
             </div>
         </div>
     </div>
@@ -97,5 +139,105 @@
 .table td {
     vertical-align: middle;
 }
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
 </style>
+
+<script>
+function editCategory(categoryId) {
+    // Debug-Ausgabe
+    console.log('Bearbeite Kategorie mit ID:', categoryId);
+    
+    fetch('/admin-panel/category/edit/' + categoryId)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Netzwerkantwort war nicht ok: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Geladene Daten:', data);
+            
+            if (data.error) {
+                alert('Fehler: ' + data.error);
+                return;
+            }
+            
+            // Formularfelder ausfüllen
+            document.getElementById('edit-id').value = data.id;
+            document.getElementById('edit-name').value = data.name;
+            document.getElementById('edit-display_name').value = data.display_name;
+            document.getElementById('edit-order').value = data.order;
+            document.getElementById('edit-is_drink_category').checked = data.is_drink_category;
+            
+            // Action-URL setzen
+            document.getElementById('edit-form').action = '/admin/kategorien/bearbeiten/' + data.id;
+            
+            // Modal anzeigen
+            document.getElementById('editModal').style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Fehler:', error);
+            alert('Fehler beim Laden der Kategorie-Daten: ' + error.message);
+        });
+}
+
+// Event-Listener für die Bearbeiten-Buttons
+document.addEventListener('DOMContentLoaded', function() {
+    const editButtons = document.querySelectorAll('.edit-btn');
+    editButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const categoryId = this.getAttribute('data-id');
+            editCategory(categoryId);
+        });
+    });
+});
+
+// Modal schließen
+document.querySelector('.close').onclick = function() {
+    document.getElementById('editModal').style.display = 'none';
+}
+
+// Modal schließen wenn außerhalb geklickt wird
+window.onclick = function(event) {
+    var modal = document.getElementById('editModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+</script>
 {% endblock %}

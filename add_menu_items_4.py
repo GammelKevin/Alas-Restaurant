@@ -4,44 +4,59 @@ def add_menu_items():
     def get_category(name):
         return MenuCategory.query.filter_by(name=name).first()
 
-    # Spezialitäten vom Lamm
-    lamm_spezialitaeten = [
-        {'name': 'Lammkoteletts', 'description': 'Mit Kartoffelscheiben, grünen Bohnen & Tzatziki.', 'price': 21.60, 'category': 'spezialitaeten_vom_lamm'},
-        {'name': 'Zarte Lammhaxen aus dem Backofen', 'description': 'Mit Schafskäse gratiniert, dazu Kartoffelscheiben & gemischter Salat.', 'price': 21.20, 'category': 'spezialitaeten_vom_lamm'},
-        {'name': 'Mit dicken Bohnen', 'price': 17.90, 'category': 'spezialitaeten_vom_lamm'},
-        {'name': 'Mit Bamies (Okraschoten)', 'price': 17.20, 'category': 'spezialitaeten_vom_lamm'},
-        {'name': 'Mit Spaghetti', 'price': 19.90, 'category': 'spezialitaeten_vom_lamm'},
-        {'name': 'Stifado', 'description': 'Zartes Lammfleisch mit Schalotten in Tomaten-Kräutersauce.', 'price': 17.80, 'category': 'spezialitaeten_vom_lamm'},
-        {'name': 'Kleftiko', 'description': 'Marinierte Lammhaxe mit Schafskäse, in Alufolie gebacken, aromatisiert mit Knoblauch, Dill, Thymian, serviert mit Bratkartoffeln.', 'price': 19.90, 'category': 'spezialitaeten_vom_lamm'}
+    # Aperitifs
+    aperitifs = [
+        {'name': 'Tsipouro mit oder ohne Anis', 'price': 3.50, 'category': 'aperitifs', 'contains_alcohol': True},
+        {'name': 'Ouzo', 'price': 3.50, 'category': 'aperitifs', 'contains_alcohol': True},
+        {'name': 'Ouzo rose mit Rosen Likör', 'price': 3.90, 'category': 'aperitifs', 'contains_alcohol': True},
+        {'name': 'Ouzo mit Olive oder Feige', 'price': 3.50, 'category': 'aperitifs', 'contains_alcohol': True},
+        {'name': 'Ouzo mit Eiswürfeln', 'price': 3.50, 'category': 'aperitifs', 'contains_alcohol': True},
+        {'name': 'Martini Bianco oder Rosso Campari', 'price': 3.50, 'category': 'aperitifs', 'contains_alcohol': True},
+        {'name': 'Orange oder Sekt', 'price': 3.50, 'category': 'aperitifs', 'contains_alcohol': True},
+        {'name': 'Lillet wild berry', 'price': 3.50, 'category': 'aperitifs', 'contains_alcohol': True}
     ]
 
-    # Fleischgerichte
-    fleischgerichte = [
-        {'name': 'Sutzukakia', 'description': 'Gegrillte Hackfleischröllchen, mit Tomatenreis & Tzatziki.', 'price': 14.90, 'category': 'fleischgerichte'},
-        {'name': 'Gyros', 'description': 'Serviert mit Tomatenreis & Tzatziki.', 'price': 15.90, 'category': 'fleischgerichte', 'homemade': True},
-        {'name': 'Souflaki', 'description': 'Zwei Spieße, serviert mit Tomatenreis & Tzatziki.', 'price': 15.90, 'category': 'fleischgerichte'},
-        {'name': 'Bifteki', 'description': 'Hacksteak gefüllt mit Schafskäse, serviert mit Tomatenreis & Tzatziki.', 'price': 17.50, 'category': 'fleischgerichte'},
-        {'name': 'Hähnchenfilet', 'description': 'Serviert mit Tomatenreis & Tzatziki.', 'price': 15.60, 'category': 'fleischgerichte'},
-        {'name': 'Bauernspieß', 'description': 'Vom Schwein mit Paprika & Zwiebeln, saftig gegrillt, dazu Folienkartoffel & Tzatziki.', 'price': 20.50, 'category': 'fleischgerichte'},
-        {'name': 'Kalbsleber', 'description': 'Mit gerösteten Zwiebeln, einem Hauch von Knoblauch, Kartoffelscheiben & Tzatziki.', 'price': 17.50, 'category': 'fleischgerichte'},
-        {'name': 'Rückensteak vom Grill', 'description': '(Vom Schwein) mit Kräuterbutter & Tomatenreis & Tzatziki.', 'price': 17.50, 'category': 'fleischgerichte'},
-        {'name': 'Medaillons vom Grill', 'description': '(Vom Schwein) mit Kräuterbutter & Tomatenreis & Tzatziki.', 'price': 19.60, 'category': 'fleischgerichte'},
-        {'name': 'Schnitzel Wiener Art', 'description': '(Vom Schwein) mit Pommes Frites & Tzatziki.', 'price': 16.80, 'category': 'fleischgerichte'}
+    # Wasser & Softdrinks
+    wasser_und_softdrinks = [
+        {'name': 'Adldorfer Gourmet Natur (0,25 l)', 'price': 3.00, 'category': 'wasser_und_softdrinks'},
+        {'name': 'Adldorfer Gourmet Natur (0,75 l)', 'price': 6.00, 'category': 'wasser_und_softdrinks'},
+        {'name': 'Adldorfer Gourmet Klassik (0,25 l)', 'price': 3.00, 'category': 'wasser_und_softdrinks'},
+        {'name': 'Adldorfer Gourmet Klassik (0,75 l)', 'price': 6.00, 'category': 'wasser_und_softdrinks'},
+        {'name': 'Griechisches Wasser Still (0,5 l)', 'price': 4.80, 'category': 'wasser_und_softdrinks'},
+        {'name': 'Tafelwasser (0,4 l)', 'price': 4.50, 'category': 'wasser_und_softdrinks'},
+        {'name': 'Cola, Orangenlimo, Zitronenlimo, Spezi (0,2 l)', 'price': 3.90, 'category': 'wasser_und_softdrinks'},
+        {'name': 'Cola, Orangenlimo, Zitronenlimo, Spezi (0,4 l)', 'price': 4.50, 'category': 'wasser_und_softdrinks'},
+        {'name': 'Coca Cola Zero (0,2 l)', 'price': 3.90, 'category': 'wasser_und_softdrinks'},
+        {'name': 'Coca Cola Zero (0,4 l)', 'price': 4.50, 'category': 'wasser_und_softdrinks'}
     ]
 
-    # Gemischte Fleischplatten
-    fleischplatten = [
-        {'name': 'Mia-Platte', 'description': 'Gyros, Lammkotelett, Souflaki, Sutzuki mit Tomatenreis, dazu Tzatziki.', 'price': 17.90, 'category': 'gemischte_fleischplatten'},
-        {'name': 'Alas-Platte', 'description': 'Souflaki, Kalbsleber, Sutzuki, Gyros mit Tomatenreis, dazu Tzatziki.', 'price': 17.20, 'category': 'gemischte_fleischplatten'},
-        {'name': 'Meteora-Platte', 'description': 'Gyros, 2 St. Kalbsleber mit Tomatenreis, dazu Tzatziki.', 'price': 19.90, 'category': 'gemischte_fleischplatten'},
-        {'name': 'Trikala-Platte', 'description': 'Gyros & Souflaki mit Tomatenreis, dazu Tzatziki.', 'price': 17.80, 'category': 'gemischte_fleischplatten'},
-        {'name': 'Thessalia-Platte', 'description': 'Gyros & Kalamari mit Tomatenreis, dazu Tzatziki.', 'price': 17.80, 'category': 'gemischte_fleischplatten'},
-        {'name': 'Volos-Platte', 'description': 'Gyros & 2 St. Sutzuki mit Tomatenreis, dazu Tzatziki.', 'price': 18.20, 'category': 'gemischte_fleischplatten'},
-        {'name': 'Dorf-Platte', 'description': 'Gyros, 1 St. Souflaki & 1 St. Rückensteak mit Tomatenreis, dazu Tzatziki.', 'price': 18.20, 'category': 'gemischte_fleischplatten'}
+    # Säfte & Schorlen
+    saefte_und_schorlen = [
+        {'name': 'Apfel/Johannisbeere/Maracuja/Traube (aus Nektar und Saftkonzentrat)', 'price': 6.00, 'category': 'saefte_und_schorlen'},
+        {'name': 'Orangensaft', 'price': 6.00, 'category': 'saefte_und_schorlen'},
+        {'name': 'Saftschorle (Apfel/Johannisbeere/Maracuja/Traube)', 'price': 6.00, 'category': 'saefte_und_schorlen'},
+        {'name': 'Holunderschorle', 'price': 9.00, 'category': 'saefte_und_schorlen'}
     ]
 
-    # Combine all items
-    all_items = lamm_spezialitaeten + fleischgerichte + fleischplatten
+    # Bier
+    bier = [
+        {'name': 'Helles vom Fass (0,2 l)', 'price': 3.60, 'category': 'bier', 'contains_alcohol': True},
+        {'name': 'Helles vom Fass (0,4 l)', 'price': 4.50, 'category': 'bier', 'contains_alcohol': True},
+        {'name': 'Alkoholfreies Helles (0,3 l)', 'price': 3.60, 'category': 'bier', 'alcohol_free': True},
+        {'name': 'Dunkles (0,5 l)', 'price': 4.50, 'category': 'bier', 'contains_alcohol': True},
+        {'name': 'Radler (0,5 l)', 'price': 4.50, 'category': 'bier', 'contains_alcohol': True},
+        {'name': 'Weizen vom Fass (0,3 l)', 'price': 3.60, 'category': 'bier', 'contains_alcohol': True},
+        {'name': 'Weizen vom Fass (0,5 l)', 'price': 4.50, 'category': 'bier', 'contains_alcohol': True},
+        {'name': 'Alkoholfreies Weizen (0,5 l)', 'price': 4.50, 'category': 'bier', 'alcohol_free': True},
+        {'name': 'Cola-Weizen (0,5 l)', 'price': 4.50, 'category': 'bier', 'contains_alcohol': True},
+        {'name': 'Russen-Halbe (0,5 l)', 'price': 4.50, 'category': 'bier', 'contains_alcohol': True},
+        {'name': 'Pils (0,33 l)', 'price': 3.90, 'category': 'bier', 'contains_alcohol': True},
+        {'name': 'Mytos (0,33 l)', 'price': 3.90, 'category': 'bier', 'contains_alcohol': True},
+        {'name': 'Griechisches Lagerbier (0,5 l)', 'price': 4.50, 'category': 'bier', 'contains_alcohol': True}
+    ]
+
+    # Alle Menüpunkte zur Datenbank hinzufügen
+    all_items = aperitifs + wasser_und_softdrinks + saefte_und_schorlen + bier
 
     for item_data in all_items:
         category = get_category(item_data['category'])
@@ -51,12 +66,13 @@ def add_menu_items():
                 description=item_data.get('description', ''),
                 price=item_data['price'],
                 category_id=category.id,
-                homemade=item_data.get('homemade', False)
+                alcohol_free=item_data.get('alcohol_free', False),
+                contains_alcohol=item_data.get('contains_alcohol', False)
             )
             db.session.add(item)
 
     db.session.commit()
-    print("Lamb specialties and meat dishes added successfully!")
+    print("Menüpunkte (Teil 4) erfolgreich hinzugefügt!")
 
 if __name__ == '__main__':
     with app.app_context():

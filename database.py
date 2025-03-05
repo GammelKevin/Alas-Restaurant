@@ -1,8 +1,7 @@
-from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
+# This file is deprecated and should not be used.
+# All database models are now defined in models.py
 
-db = SQLAlchemy()
+from extensions import db
 
 class MenuItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)

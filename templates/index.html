@@ -310,6 +310,26 @@
         background: white;
         color: #c17817;
     }
+
+    .vacation {
+        color: #ff9800;
+        padding: 8px 12px;
+        border-radius: 6px;
+        background-color: rgba(255, 152, 0, 0.1);
+        margin: 0;
+        display: inline-block;
+    }
+
+    .vacation i {
+        margin-right: 8px;
+        color: #ff9800;
+    }
+
+    .vacation span {
+        display: block;
+        margin-top: 4px;
+        color: #666;
+    }
 </style>
 
 <!-- Reservation Popup -->
@@ -401,7 +421,7 @@ document.addEventListener('keydown', function(e) {
                         <p class="feature-text">Ein essentielles Element in der griechischen Küche und Kultur</p>
                         <div class="feature-overlay">
                             <p class="feature-overlay-text">Entdecken Sie die tiefere Bedeutung von Salz in der griechischen Küche und Kultur.</p>
-                            <a href="{{ url_for('salt_story') }}" class="feature-button">Mehr erfahren</a>
+                            <a href="{{ url_for('salz_geschichte') }}" class="feature-button">Mehr erfahren</a>
                         </div>
                     </div>
                 </div>
@@ -414,7 +434,7 @@ document.addEventListener('keydown', function(e) {
                             <div class="overlay-content">
                                 <h4>Unsere Familiengeschichte</h4>
                                 <p>Von Griechenland nach Deutschland, von der Taverne zum eigenen Restaurant – entdecken Sie die Geschichte einer Familie, die ihre Träume und Traditionen über Generationen bewahrt hat.</p>
-                                <a href="{{ url_for('family_story') }}" class="btn btn-outline-light">Mehr erfahren</a>
+                                <a href="{{ url_for('familien_geschichte') }}" class="btn btn-outline-light">Mehr erfahren</a>
                             </div>
                         </div>
                     </div>
@@ -428,7 +448,7 @@ document.addEventListener('keydown', function(e) {
                             <div class="overlay-content">
                                 <h4>Jahrzehnte der Perfektion</h4>
                                 <p>Erleben Sie das Ergebnis von 30 Jahren Leidenschaft für die griechische Küche. Jedes Gericht erzählt seine eigene Geschichte von Tradition und Qualität.</p>
-                                <a href="{{ url_for('experience_story') }}" class="btn btn-outline-light">Mehr erfahren</a>
+                                <a href="{{ url_for('erfahrungs_geschichte') }}" class="btn btn-outline-light">Mehr erfahren</a>
                             </div>
                         </div>
                     </div>
@@ -452,10 +472,22 @@ document.addEventListener('keydown', function(e) {
             {% for hour in opening_hours %}
             <div class="day-card">
                 <h3 class="day-name">{{ hour.day }}</h3>
-                {% if hour.closed %}
-                <p class="closed">Ruhetag</p>
+                {% if hour.is_on_vacation() %}
+                <p class="vacation">
+                    <i class="fas fa-umbrella-beach"></i>
+                    Urlaub<br>
+                    <span style="font-size: 0.9em; opacity: 0.9;">
+                        {{ hour.vacation_start.strftime('%d.%m') }} - {{ hour.vacation_end.strftime('%d.%m.%Y') }}
+                    </span>
+                </p>
+                {% elif hour.closed %}
+                <p class="closed">
+                    <i class="fas fa-door-closed"></i>
+                    Ruhetag
+                </p>
                 {% else %}
                 <p class="hours">
+                    <i class="far fa-clock"></i>
                     {{ hour.open_time_1 }} - {{ hour.close_time_1 }}
                     {% if hour.open_time_2 and hour.close_time_2 %}
                     <br>

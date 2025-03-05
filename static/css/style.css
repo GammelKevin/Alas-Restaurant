@@ -147,6 +147,55 @@ main {
     vertical-align: middle;
 }
 
+/* Öffnungszeiten Styles */
+.day-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.day-card:hover {
+    transform: translateY(-5px);
+}
+
+.day-name {
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.hours {
+    color: #28a745;
+    font-size: 1.1rem;
+}
+
+.closed, .vacation, .no-times {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.closed {
+    color: #dc3545;
+}
+
+.vacation {
+    color: #fd7e14;
+}
+
+.no-times {
+    color: #6c757d;
+}
+
+.day-card i {
+    font-size: 1.2rem;
+}
+
 /* Contact Section */
 #contact {
     background-color: #f8f9fa;

@@ -49,8 +49,80 @@ def add_menu_items():
         {'name': 'Holunderschorle', 'price': 9.00, 'category': 'wasser_und_softdrinks'}
     ]
 
+    # Digestifs
+    digestifs = [
+        {'name': 'Tsipouro Aged', 'description': 'Gealtert in Eichenfass, Tresterbrand', 'price': 9.00, 'category': 'digestifs', 'contains_alcohol': True},
+        {'name': 'Mastiha Chios', 'description': 'weltweit einzigartiger Likör aus Griechenland', 'price': 9.00, 'category': 'digestifs', 'contains_alcohol': True},
+        {'name': 'Rakomelo', 'description': 'heißer Tsipouro mit Honig (Grog) - 4cl', 'price': 9.00, 'category': 'digestifs', 'contains_alcohol': True},
+        {'name': 'Averna - 4cl', 'price': 6.70, 'category': 'digestifs', 'contains_alcohol': True},
+        {'name': 'Baileys - 4cl', 'price': 6.70, 'category': 'digestifs', 'contains_alcohol': True},
+        {'name': 'Jägermeister - 2cl', 'price': 3.90, 'category': 'digestifs', 'contains_alcohol': True},
+        {'name': 'Fernet Branca - 2cl', 'price': 3.90, 'category': 'digestifs', 'contains_alcohol': True},
+        {'name': 'Ramazzotti - 4cl', 'price': 3.90, 'category': 'digestifs', 'contains_alcohol': True},
+        {'name': 'Limoncello Villa Massa - 4cl', 'price': 6.70, 'category': 'digestifs', 'contains_alcohol': True}
+    ]
+
+    # Longdrinks
+    longdrinks = [
+        {'name': 'Ouzo-Orange', 'price': 3.90, 'category': 'longdrinks', 'contains_alcohol': True},
+        {'name': 'Gin-Tonic', 'price': 6.70, 'category': 'longdrinks', 'contains_alcohol': True},
+        {'name': 'Bacardi-Cola', 'price': 3.00, 'category': 'longdrinks', 'contains_alcohol': True},
+        {'name': 'Havana-Cola', 'price': 3.00, 'category': 'longdrinks', 'contains_alcohol': True},
+        {'name': 'Whisky-Cola', 'price': 3.00, 'category': 'longdrinks', 'contains_alcohol': True},
+        {'name': 'Vodka-Lemon', 'price': 3.00, 'category': 'longdrinks', 'contains_alcohol': True}
+    ]
+
+    # Metaxa Brandy
+    metaxa_brandy = [
+        {'name': 'Metaxa 5*', 'price': 30.00, 'category': 'metaxa_brandy', 'contains_alcohol': True},
+        {'name': 'Metaxa 7*', 'price': 60.00, 'category': 'metaxa_brandy', 'contains_alcohol': True},
+        {'name': 'Metaxa Grand Fine Collectors Edition', 'price': 90.00, 'category': 'metaxa_brandy', 'contains_alcohol': True},
+        {'name': 'Metaxa Private Reserve', 'price': 90.00, 'category': 'metaxa_brandy', 'contains_alcohol': True}
+    ]
+
+    # Offene Weine
+    offene_weine = [
+        {'name': 'Rotwein Imiglikos (halbsüß - Tafelwein) - 0,2 l', 'price': 5.50, 'category': 'offene_weine', 'contains_alcohol': True},
+        {'name': 'Rotwein Hauswein (Trocken-Qualitätswein) - 0,2 l', 'price': 5.50, 'category': 'offene_weine', 'contains_alcohol': True},
+        {'name': 'Mavrodafni (Dessertwein) - 0,2 l', 'price': 6.00, 'category': 'offene_weine', 'contains_alcohol': True},
+        {'name': 'Roséwein Imiglikos (halbsüß - Tafelwein) - 0,2 l', 'price': 5.50, 'category': 'offene_weine', 'contains_alcohol': True},
+        {'name': 'Roséwein Hauswein (Trocken-Qualitätswein) - 0,2 l', 'price': 5.50, 'category': 'offene_weine', 'contains_alcohol': True},
+        {'name': 'Weißwein Imiglikos (halbsüß - Tafelwein) - 0,2 l', 'price': 5.50, 'category': 'offene_weine', 'contains_alcohol': True},
+        {'name': 'Weißwein Hauswein (Trocken-Qualitätswein) - 0,2 l', 'price': 5.50, 'category': 'offene_weine', 'contains_alcohol': True},
+        {'name': 'Retsina - Malamatina (geharzt) - 0,2 l', 'price': 5.50, 'category': 'offene_weine', 'contains_alcohol': True},
+        {'name': 'Muscat aus Patras (Dessertwein) - 0,2 l', 'price': 6.00, 'category': 'offene_weine', 'contains_alcohol': True},
+        {'name': 'Weinschorle - 0,2 l', 'price': 5.50, 'category': 'offene_weine', 'contains_alcohol': True}
+    ]
+
+    # Weinliste
+    weinliste = [
+        {'name': 'THEMA - ASSYRTIKO, SAUVIGNON BLANC', 'price': 25.00, 'category': 'weinliste', 'contains_alcohol': True},
+        {'name': 'AMETHISTOS - ASSYRTIKO, SAUVIGNON BLANC', 'price': 30.00, 'category': 'weinliste', 'contains_alcohol': True},
+        {'name': 'OVILOS - ASSYRTIKO, SEMILLON', 'price': 30.00, 'category': 'weinliste', 'contains_alcohol': True},
+        {'name': 'MAGIC MOUNTAIN - SAUVIGNON BLANC', 'price': 30.00, 'category': 'weinliste', 'contains_alcohol': True},
+        {'name': 'JULIA - CHARDONNAY', 'price': 15.00, 'category': 'weinliste', 'contains_alcohol': True},
+        {'name': 'KECHRIBARI RETSINA', 'price': 15.00, 'category': 'weinliste', 'contains_alcohol': True},
+        {'name': 'AMETHISTOS - CABERNET SAUVIGNON, MERLOT', 'price': 30.00, 'category': 'weinliste', 'contains_alcohol': True},
+        {'name': 'DOMAINE COSTA LAZARIDI - MERLOT, AGIORITIKO, GRENACHE ROUGE', 'price': 30.00, 'category': 'weinliste', 'contains_alcohol': True},
+        {'name': 'ALPHA ESTATE - XINOMAVRO', 'price': 12.00, 'category': 'weinliste', 'contains_alcohol': True},
+        {'name': 'THEMA - AGIORITIKO, SYRAH', 'price': 30.00, 'category': 'weinliste', 'contains_alcohol': True},
+        {'name': 'AMETHISTOS - CABERNET SAUVIGNON, MERLOT, AGIORITIKO', 'price': 40.00, 'category': 'weinliste', 'contains_alcohol': True},
+        {'name': 'OVILOS - CABERNET SAUVIGNON', 'price': 40.00, 'category': 'weinliste', 'contains_alcohol': True},
+        {'name': 'MAGIC MOUNTAIN - CABERNET SAUVIGNON, CABERNET FRANC', 'price': 90.00, 'category': 'weinliste', 'contains_alcohol': True},
+        {'name': 'JULIA - MERLOT', 'price': 30.00, 'category': 'weinliste', 'contains_alcohol': True},
+        {'name': 'CAVINO - RODITIS, SAVATIANO', 'price': 9.90, 'category': 'weinliste', 'contains_alcohol': True}
+    ]
+
+    # Ouzo
+    ouzo = [
+        {'name': 'PLOMARI OUZO (0,2L)', 'price': 30.00, 'category': 'ouzo', 'contains_alcohol': True},
+        {'name': 'PLOMARI OUZO (0,7L)', 'price': 60.00, 'category': 'ouzo', 'contains_alcohol': True},
+        {'name': 'KATSAROS OUZO (50ML)', 'price': 6.50, 'category': 'ouzo', 'contains_alcohol': True},
+        {'name': 'KATSAROS OUZO (0,7L)', 'price': 90.00, 'category': 'ouzo', 'contains_alcohol': True}
+    ]
+
     # Combine all items
-    all_items = desserts + kaffee_tee + getraenke
+    all_items = desserts + kaffee_tee + getraenke + digestifs + longdrinks + metaxa_brandy + offene_weine + weinliste + ouzo
 
     for item_data in all_items:
         category = get_category(item_data['category'])

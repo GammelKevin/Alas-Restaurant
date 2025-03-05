@@ -94,6 +94,7 @@
     <div class="login-container">
         <div class="login-box">
             <h1>Admin Login</h1>
+            
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     {% for message in messages %}
@@ -101,19 +102,34 @@
                     {% endfor %}
                 {% endif %}
             {% endwith %}
-            <form method="POST" action="{{ url_for('login') }}" class="login-form">
-                {{ form.csrf_token }}
+            
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                
                 <div class="form-group">
                     {{ form.username.label }}
-                    {{ form.username(class="form-control") }}
+                    {{ form.username(class="form-control", placeholder="Benutzername eingeben") }}
+                    {% if form.username.errors %}
+                        {% for error in form.username.errors %}
+                            <div class="alert">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
+                
                 <div class="form-group">
                     {{ form.password.label }}
-                    {{ form.password(class="form-control") }}
+                    {{ form.password(class="form-control", placeholder="Passwort eingeben") }}
+                    {% if form.password.errors %}
+                        {% for error in form.password.errors %}
+                            <div class="alert">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
-                {{ form.submit(class="btn btn-primary") }}
+                
+                {{ form.submit(class="btn-primary") }}
             </form>
-            <a href="{{ url_for('index') }}" class="back-link">← Zurück zur Website</a>
+            
+            <a href="{{ url_for('index') }}" class="back-link">Zurück zur Homepage</a>
         </div>
     </div>
 </body>

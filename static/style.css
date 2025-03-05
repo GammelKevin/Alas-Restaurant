@@ -863,15 +863,48 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+    padding: 0 1rem;
 }
 
 .menu-item {
-    background: #fff;
-    border-radius: 10px;
+    background: white;
     padding: 1.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.item-header h3 {
+    color: var(--dark);
+    font-size: 1.2rem;
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+    word-wrap: break-word;
+}
+
+.price {
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 1.1rem;
+    white-space: nowrap;
+}
+
+.description {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.4;
+    word-wrap: break-word;
 }
 
 .menu-item:hover {
@@ -902,13 +935,6 @@ body {
     transition: transform 0.3s ease;
 }
 
-.menu-item .item-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
 .menu-item .item-name {
     font-size: 1.4rem;
     color: #333;
@@ -920,13 +946,6 @@ body {
     font-size: 1.2rem;
     color: #e19b4c;
     font-weight: 600;
-}
-
-.menu-item .description {
-    color: #666;
-    margin-bottom: 1rem;
-    font-size: 0.95rem;
-    line-height: 1.5;
 }
 
 .menu-item .item-tags {
@@ -985,5 +1004,57 @@ body {
 
     .menu-item .item-name {
         font-size: 1.2rem;
+    }
+}
+
+/* Toast Benachrichtigungen */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 300px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.3s ease-out;
+}
+
+.toast.success {
+    background-color: #28a745;
+}
+
+.toast.error {
+    background-color: #dc3545;
+}
+
+.toast .close-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0 0 0 15px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.toast .close-button:hover {
+    opacity: 1;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
     }
 }

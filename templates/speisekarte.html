@@ -1,0 +1,282 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="menu-page">
+    <header class="menu-header">
+        <h1>Unsere Speisekarte</h1>
+    </header>
+
+    <div class="menu-content">
+        <!-- Speisen -->
+        {% for category in categories %}
+            {% if not category.is_drink_category %}
+                <section class="menu-section">
+                    <h2>{{ category.display_name }}</h2>
+                    <div class="menu-items">
+                        {% for item in menu_items %}
+                            {% if item.category_id == category.id %}
+                                <div class="menu-item {% if item.image_path %}with-image{% endif %}">
+                                    {% if item.image_path %}
+                                        <div class="menu-item-image">
+                                            <img src="{{ url_for('static', filename=item.image_path) }}" alt="{{ item.name }}" loading="lazy">
+                                        </div>
+                                    {% endif %}
+                                    <div class="menu-item-content">
+                                        <div class="item-header">
+                                            <h3 class="item-name">{{ item.name | safe }}</h3>
+                                            <span class="item-price">{{ "%.2f"|format(item.price) }}€</span>
+                                        </div>
+                                        <p class="description">{{ item.description | safe }}</p>
+                                        <div class="item-tags">
+                                            {% if item.vegetarian %}
+                                                <span class="badge vegetarian" title="Vegetarisch">🥕 Vegetarisch</span>
+                                            {% endif %}
+                                            {% if item.vegan %}
+                                                <span class="badge vegan" title="Vegan">🌱 Vegan</span>
+                                            {% endif %}
+                                            {% if item.spicy %}
+                                                <span class="badge spicy" title="Scharf">🌶️ Scharf</span>
+                                            {% endif %}
+                                            {% if item.gluten_free %}
+                                                <span class="badge gluten-free" title="Glutenfrei">🌾❌ Glutenfrei</span>
+                                            {% endif %}
+                                            {% if item.lactose_free %}
+                                                <span class="badge lactose-free" title="Laktosefrei">🥛❌ Laktosefrei</span>
+                                            {% endif %}
+                                            {% if item.kid_friendly %}
+                                                <span class="badge kid-friendly" title="Kinderfreundlich">👶 Kinderfreundlich</span>
+                                            {% endif %}
+                                            {% if item.alcohol_free %}
+                                                <span class="badge alcohol-free" title="Alkoholfrei">🍺❌ Alkoholfrei</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </section>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Getränke -->
+        <div class="drinks-section">
+            <h2 class="drinks-title">Getränke</h2>
+            <div class="drinks-categories">
+                {% for category in categories %}
+                    {% if category.is_drink_category %}
+                        <section class="menu-section drink-category">
+                            <h3>{{ category.display_name }}</h3>
+                            <div class="menu-items">
+                                {% for item in menu_items %}
+                                    {% if item.category_id == category.id %}
+                                        <div class="menu-item {% if item.image_path %}with-image{% endif %}">
+                                            {% if item.image_path %}
+                                                <div class="menu-item-image">
+                                                    <img src="{{ url_for('static', filename=item.image_path) }}" alt="{{ item.name }}" loading="lazy">
+                                                </div>
+                                            {% endif %}
+                                            <div class="menu-item-content">
+                                                <div class="item-header">
+                                                    <h4 class="item-name">{{ item.name | safe }}</h4>
+                                                    <span class="item-price">{{ "%.2f"|format(item.price) }}€</span>
+                                                </div>
+                                                <p class="description">{{ item.description | safe }}</p>
+                                                <div class="item-tags">
+                                                    {% if item.vegetarian %}
+                                                        <span class="badge vegetarian" title="Vegetarisch">🥕 Vegetarisch</span>
+                                                    {% endif %}
+                                                    {% if item.vegan %}
+                                                        <span class="badge vegan" title="Vegan">🌱 Vegan</span>
+                                                    {% endif %}
+                                                    {% if item.alcohol_free %}
+                                                        <span class="badge alcohol-free" title="Alkoholfrei">🍺❌ Alkoholfrei</span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </section>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .menu-page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    .menu-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .menu-header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5em;
+        color: #c17817;
+        margin-bottom: 10px;
+    }
+
+    .menu-section {
+        margin-bottom: 40px;
+    }
+
+    .menu-section h2 {
+        font-family: 'Playfair Display', serif;
+        color: #333;
+        font-size: 1.8em;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #f0f0f0;
+    }
+
+    .menu-items {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    .menu-item {
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .menu-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .menu-item-image {
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .menu-item-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .menu-item:hover .menu-item-image img {
+        transform: scale(1.05);
+    }
+
+    .menu-item-content {
+        padding: 20px;
+    }
+
+    .item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .item-name {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.3em;
+        color: #333;
+        margin: 0;
+    }
+
+    .item-price {
+        font-weight: bold;
+        color: #c17817;
+        font-size: 1.2em;
+    }
+
+    .description {
+        color: #666;
+        margin-bottom: 15px;
+        line-height: 1.6;
+    }
+
+    .item-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .badge {
+        font-size: 0.8em;
+        padding: 4px 8px;
+        border-radius: 4px;
+        background: #f5f5f5;
+        color: #555;
+    }
+
+    .vegetarian {
+        background: #e8f5e9;
+        color: #2e7d32;
+    }
+
+    .vegan {
+        background: #e0f2f1;
+        color: #00695c;
+    }
+
+    .spicy {
+        background: #ffebee;
+        color: #c62828;
+    }
+
+    .gluten-free, .lactose-free, .alcohol-free {
+        background: #e3f2fd;
+        color: #1565c0;
+    }
+
+    .kid-friendly {
+        background: #fff8e1;
+        color: #ff8f00;
+    }
+
+    .drinks-section {
+        margin-top: 60px;
+    }
+
+    .drinks-title {
+        font-family: 'Playfair Display', serif;
+        color: #333;
+        font-size: 2em;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .drinks-categories {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+    }
+
+    .drink-category h3 {
+        font-family: 'Playfair Display', serif;
+        color: #c17817;
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #f0f0f0;
+    }
+
+    @media (max-width: 768px) {
+        .menu-items {
+            grid-template-columns: 1fr;
+        }
+
+        .drinks-categories {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %} 
