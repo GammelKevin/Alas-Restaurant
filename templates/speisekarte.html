@@ -4,6 +4,12 @@
 <div class="menu-page">
     <header class="menu-header">
         <h1>Unsere Speisekarte</h1>
+        
+        <!-- Suchleiste -->
+        <div class="search-container">
+            <input type="text" id="menu-search" placeholder="Gericht suchen...">
+            <button id="search-button"><i class="fas fa-search"></i></button>
+        </div>
     </header>
 
     <div class="menu-content">
@@ -11,11 +17,11 @@
         {% for category in categories %}
             {% if not category.is_drink_category %}
                 <section class="menu-section">
-                    <h2>{{ category.display_name }}</h2>
-                    <div class="menu-items">
+                    <h2 class="category-title">{{ category.display_name }} <span class="toggle-icon">+</span></h2>
+                    <div class="menu-items hidden">
                         {% for item in menu_items %}
                             {% if item.category_id == category.id %}
-                                <div class="menu-item {% if item.image_path %}with-image{% endif %}">
+                                <div class="menu-item {% if item.image_path %}with-image{% endif %}" data-name="{{ item.name | lower }}" data-description="{{ item.description | lower }}">
                                     {% if item.image_path %}
                                         <div class="menu-item-image">
                                             <img src="{{ url_for('static', filename=item.image_path) }}" alt="{{ item.name }}" loading="lazy">
@@ -74,11 +80,11 @@
                     {% for category in categories %}
                         {% if category.is_drink_category %}
                             <section class="menu-section drink-category">
-                                <h3>{{ category.display_name }}</h3>
-                                <div class="menu-items">
+                                <h3 class="category-title">{{ category.display_name }} <span class="toggle-icon">+</span></h3>
+                                <div class="menu-items hidden">
                                     {% for item in menu_items %}
                                         {% if item.category_id == category.id %}
-                                            <div class="menu-item {% if item.image_path %}with-image{% endif %}">
+                                            <div class="menu-item {% if item.image_path %}with-image{% endif %}" data-name="{{ item.name | lower }}" data-description="{{ item.description | lower }}">
                                                 {% if item.image_path %}
                                                     <div class="menu-item-image">
                                                         <img src="{{ url_for('static', filename=item.image_path) }}" alt="{{ item.name }}" loading="lazy">
@@ -131,20 +137,70 @@
         font-family: 'Playfair Display', serif;
         font-size: 2.5em;
         color: #c17817;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* Suchleiste */
+    .search-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 500px;
+        margin: 0 auto 30px;
+    }
+
+    #menu-search {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px 0 0 8px;
+        font-size: 16px;
+        outline: none;
+    }
+
+    #search-button {
+        background: #c17817;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 0 8px 8px 0;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    #search-button:hover {
+        background: #a36613;
     }
 
     .menu-section {
         margin-bottom: 40px;
     }
 
-    .menu-section h2 {
+    .category-title {
         font-family: 'Playfair Display', serif;
         color: #333;
         font-size: 1.8em;
         margin-bottom: 20px;
-        padding-bottom: 10px;
+        padding: 15px;
         border-bottom: 2px solid #f0f0f0;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.3s ease;
+    }
+
+    .category-title:hover {
+        background-color: #f8f8f8;
+    }
+
+    .toggle-icon {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+    .hidden {
+        display: none;
     }
 
     .menu-items {
@@ -273,9 +329,6 @@
         font-family: 'Playfair Display', serif;
         color: #c17817;
         font-size: 1.5em;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #f0f0f0;
     }
 
     @media (max-width: 768px) {
@@ -286,6 +339,100 @@
         .drinks-categories {
             grid-template-columns: 1fr;
         }
+        
+        .search-container {
+            flex-direction: column;
+        }
+        
+        #menu-search,
+        #search-button {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
     }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Accordion für Kategorien
+        const categoryTitles = document.querySelectorAll('.category-title');
+        
+        categoryTitles.forEach(title => {
+            title.addEventListener('click', function() {
+                const menuItems = this.nextElementSibling;
+                const toggleIcon = this.querySelector('.toggle-icon');
+                
+                if (menuItems.classList.contains('hidden')) {
+                    menuItems.classList.remove('hidden');
+                    toggleIcon.textContent = '-';
+                } else {
+                    menuItems.classList.add('hidden');
+                    toggleIcon.textContent = '+';
+                }
+            });
+        });
+        
+        // Suchfunktion
+        const searchInput = document.getElementById('menu-search');
+        const searchButton = document.getElementById('search-button');
+        const menuItems = document.querySelectorAll('.menu-item');
+        const menuSections = document.querySelectorAll('.menu-section');
+        
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                // Wenn die Suche leer ist, alle Kategorien zurücksetzen
+                menuSections.forEach(section => {
+                    section.querySelector('.menu-items').classList.add('hidden');
+                    section.querySelector('.toggle-icon').textContent = '+';
+                });
+                
+                menuItems.forEach(item => {
+                    item.style.display = 'block';
+                });
+                return;
+            }
+            
+            // Zuerst alle Kategorien öffnen
+            menuSections.forEach(section => {
+                section.querySelector('.menu-items').classList.remove('hidden');
+                section.querySelector('.toggle-icon').textContent = '-';
+            });
+            
+            // Dann nach dem Suchbegriff filtern
+            menuItems.forEach(item => {
+                const itemName = item.getAttribute('data-name');
+                const itemDescription = item.getAttribute('data-description');
+                
+                if (itemName.includes(searchTerm) || itemDescription.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Kategorien ohne sichtbare Elemente ausblenden
+            menuSections.forEach(section => {
+                const visibleItems = section.querySelectorAll('.menu-item[style="display: block"]');
+                if (visibleItems.length === 0) {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = 'block';
+                }
+            });
+        }
+        
+        searchInput.addEventListener('input', performSearch);
+        searchButton.addEventListener('click', performSearch);
+        
+        // Bei Drücken der Enter-Taste auch suchen
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    });
+</script>
 {% endblock %} 
