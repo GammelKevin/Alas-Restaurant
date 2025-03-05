@@ -158,8 +158,7 @@ def track_page_visit(page):
             page_friendly_name=friendly_name,
             ip_address=ip_address,
             user_agent=user_agent,
-            timestamp=datetime.now(),
-            referer=referer
+            timestamp=datetime.now()
         )
         db.session.add(visit)
         

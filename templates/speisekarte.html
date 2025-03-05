@@ -61,47 +61,56 @@
 
         <!-- Getränke -->
         <div class="drinks-section">
-            <h2 class="drinks-title">Getränke</h2>
-            <div class="drinks-categories">
-                {% for category in categories %}
-                    {% if category.is_drink_category %}
-                        <section class="menu-section drink-category">
-                            <h3>{{ category.display_name }}</h3>
-                            <div class="menu-items">
-                                {% for item in menu_items %}
-                                    {% if item.category_id == category.id %}
-                                        <div class="menu-item {% if item.image_path %}with-image{% endif %}">
-                                            {% if item.image_path %}
-                                                <div class="menu-item-image">
-                                                    <img src="{{ url_for('static', filename=item.image_path) }}" alt="{{ item.name }}" loading="lazy">
-                                                </div>
-                                            {% endif %}
-                                            <div class="menu-item-content">
-                                                <div class="item-header">
-                                                    <h4 class="item-name">{{ item.name | safe }}</h4>
-                                                    <span class="item-price">{{ "%.2f"|format(item.price) }}€</span>
-                                                </div>
-                                                <p class="description">{{ item.description | safe }}</p>
-                                                <div class="item-tags">
-                                                    {% if item.vegetarian %}
-                                                        <span class="badge vegetarian" title="Vegetarisch">🥕 Vegetarisch</span>
-                                                    {% endif %}
-                                                    {% if item.vegan %}
-                                                        <span class="badge vegan" title="Vegan">🌱 Vegan</span>
-                                                    {% endif %}
-                                                    {% if item.alcohol_free %}
-                                                        <span class="badge alcohol-free" title="Alkoholfrei">🍺❌ Alkoholfrei</span>
-                                                    {% endif %}
+            {% set has_drink_category = false %}
+            {% for category in categories %}
+                {% if category.is_drink_category %}
+                    {% set has_drink_category = true %}
+                {% endif %}
+            {% endfor %}
+            
+            {% if has_drink_category %}
+                <h2 class="drinks-title">Getränke</h2>
+                <div class="drinks-categories">
+                    {% for category in categories %}
+                        {% if category.is_drink_category %}
+                            <section class="menu-section drink-category">
+                                <h3>{{ category.display_name }}</h3>
+                                <div class="menu-items">
+                                    {% for item in menu_items %}
+                                        {% if item.category_id == category.id %}
+                                            <div class="menu-item {% if item.image_path %}with-image{% endif %}">
+                                                {% if item.image_path %}
+                                                    <div class="menu-item-image">
+                                                        <img src="{{ url_for('static', filename=item.image_path) }}" alt="{{ item.name }}" loading="lazy">
+                                                    </div>
+                                                {% endif %}
+                                                <div class="menu-item-content">
+                                                    <div class="item-header">
+                                                        <h4 class="item-name">{{ item.name | safe }}</h4>
+                                                        <span class="item-price">{{ "%.2f"|format(item.price) }}€</span>
+                                                    </div>
+                                                    <p class="description">{{ item.description | safe }}</p>
+                                                    <div class="item-tags">
+                                                        {% if item.vegetarian %}
+                                                            <span class="badge vegetarian" title="Vegetarisch">🥕 Vegetarisch</span>
+                                                        {% endif %}
+                                                        {% if item.vegan %}
+                                                            <span class="badge vegan" title="Vegan">🌱 Vegan</span>
+                                                        {% endif %}
+                                                        {% if item.alcohol_free %}
+                                                            <span class="badge alcohol-free" title="Alkoholfrei">🍺❌ Alkoholfrei</span>
+                                                        {% endif %}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                        </section>
-                    {% endif %}
-                {% endfor %}
-            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </section>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>
